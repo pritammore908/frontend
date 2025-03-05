@@ -7,6 +7,7 @@ import Login from "./Login";
 // import LetterList from "./components/LetterList";
 import { auth } from "../firebase/firebase";
 import { onAuthStateChanged } from "firebase/auth";
+const API_URL = process.env.REACT_APP_API_URL;
 
 const LetterEditor = ({ user }) => {
   const [subject, setSubject] = useState("");
@@ -37,7 +38,7 @@ const LetterEditor = ({ user }) => {
     }
 
     try {
-      const { data } = await axios.get("http://localhost:5001/api/letters/get-drive-files");
+      const { data } = await axios.get(`${API_URL}/api/letters/get-drive-files`);
       setLetters(data);
       setShowLetters(true); // Show letters after fetching
     } catch (error) {
@@ -63,7 +64,7 @@ const LetterEditor = ({ user }) => {
     };
 
     try {
-      await axios.post("http://localhost:5001/api/letters/save-letter", letterData, {
+      await axios.post(`${API_URL}/api/letters/save-letter`, letterData, {
         headers: { "Content-Type": "application/json" },
       });
       alert("Draft saved successfully!");
@@ -80,7 +81,7 @@ const LetterEditor = ({ user }) => {
     }
 
     try {
-      const response = await fetch("http://localhost:5001/api/letters/save-to-drive", {
+      const response = await fetch(`${API_URL}/api/letters/save-to-drive`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ content, title }),
