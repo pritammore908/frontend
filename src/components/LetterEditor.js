@@ -38,7 +38,7 @@ const LetterEditor = ({ user }) => {
     }
 
     try {
-      const { data } = await axios.get(`${API_URL}/api/letters/get-drive-files`);
+      const { data } = await axios.get(`http://localhost:5001/api/letters/get-drive-files`);
       setLetters(data);
       setShowLetters(true); // Show letters after fetching
     } catch (error) {
@@ -64,7 +64,7 @@ const LetterEditor = ({ user }) => {
     };
 
     try {
-      await axios.post(`${API_URL}/api/letters/save-letter`, letterData, {
+      await axios.post(`http://localhost:5001/api/letters/save-letter`, letterData, {
         headers: { "Content-Type": "application/json" },
       });
       alert("Draft saved successfully!");
